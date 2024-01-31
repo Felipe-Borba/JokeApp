@@ -1,6 +1,5 @@
 package co.tiagoaguiar.tutorial.jokerappdev.view
 
-import android.view.TextureView
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
