@@ -1,15 +1,14 @@
 package co.tiagoaguiar.tutorial.jokerappdev.data
 
 import co.tiagoaguiar.tutorial.jokerappdev.model.Joke
-import co.tiagoaguiar.tutorial.jokerappdev.presentation.JokePresenter
+import co.tiagoaguiar.tutorial.jokerappdev.presentation.JokeDayPresenter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.RuntimeException
 
-class JokeRemoteDataSource {
-    fun findBy(callback: JokePresenter, categoryName: String) {
-        HTTPClient.retrofit().create(ChuckNorrisAPI::class.java).findRandom(categoryName).enqueue(object : Callback<Joke> {
+class JokeDayRemoteDataSource {
+    fun findRandom(callback: JokeDayPresenter) {
+        HTTPClient.retrofit().create(ChuckNorrisAPI::class.java).findRandom().enqueue(object : Callback<Joke> {
             override fun onResponse(call: Call<Joke>, response: Response<Joke>) {
                 if (response.isSuccessful) {
                     val joke = response.body() ?: throw RuntimeException("Piada não encontrada")
