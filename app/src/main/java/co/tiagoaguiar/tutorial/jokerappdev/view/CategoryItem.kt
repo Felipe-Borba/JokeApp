@@ -8,7 +8,7 @@ import co.tiagoaguiar.tutorial.jokerappdev.model.Category
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 
-class CategoryItem(private val category: Category) : Item<CategoryItem.CategoryViewHolder>() {
+class CategoryItem(val category: Category) : Item<CategoryItem.CategoryViewHolder>() {
     class CategoryViewHolder(view: View) : GroupieViewHolder(view)
 
     override fun createViewHolder(itemView: View): CategoryViewHolder {
@@ -17,7 +17,8 @@ class CategoryItem(private val category: Category) : Item<CategoryItem.CategoryV
 
     override fun bind(viewHolder: CategoryViewHolder, position: Int) {
         viewHolder.itemView.findViewById<TextView>(R.id.txt_category).text = category.name
-        viewHolder.itemView.findViewById<LinearLayout>(R.id.container_category).setBackgroundColor(category.bgColor.toInt())
+        viewHolder.itemView.findViewById<LinearLayout>(R.id.container_category)
+            .setBackgroundColor(category.bgColor.toInt())
     }
 
     override fun getLayout(): Int {
