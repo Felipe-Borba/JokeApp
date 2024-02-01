@@ -14,6 +14,7 @@ import co.tiagoaguiar.tutorial.jokerappdev.R
 import co.tiagoaguiar.tutorial.jokerappdev.model.Joke
 import co.tiagoaguiar.tutorial.jokerappdev.presentation.JokePresenter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.squareup.picasso.Picasso
 
 class JokeFragment : Fragment() {
     companion object {
@@ -43,6 +44,7 @@ class JokeFragment : Fragment() {
 
         progressBar = view.findViewById(R.id.progress_bar)
         textView = view.findViewById(R.id.txt_joke)
+        imageView = view.findViewById(R.id.img_joke)
 
         view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
             presenter.findBy(categoryName)
@@ -53,6 +55,7 @@ class JokeFragment : Fragment() {
 
     fun showJoke(joke: Joke) {
         textView.text = joke.text
+        Picasso.get().load(joke.iconUrl).into(imageView)
     }
 
     fun showProgress() {
