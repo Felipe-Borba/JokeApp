@@ -1,44 +1,29 @@
 package co.tiagoaguiar.tutorial.jokerappdev.presentation
 
-import android.os.Handler
-import android.os.Looper
+import co.tiagoaguiar.tutorial.jokerappdev.data.CategoryRemoteDataSource
+import co.tiagoaguiar.tutorial.jokerappdev.data.ListCategoryCallback
 import co.tiagoaguiar.tutorial.jokerappdev.model.Category
 import co.tiagoaguiar.tutorial.jokerappdev.view.HomeFragment
 
-class HomePresenter(private val view: HomeFragment) {
-    // INPUT
+class HomePresenter(
+    private val view: HomeFragment,
+    private val dataSource: CategoryRemoteDataSource = CategoryRemoteDataSource()
+) : ListCategoryCallback {
     fun findAllCategories() {
         view.showProgress()
-        fakeRequest()
+        dataSource.findAllCategories(this)
     }
 
-    // OUTPUT (sucesso | falha | complete)
-    fun onSuccess(response: List<String>) {
+    override fun onSuccess(response: List<String>) {
         val categories = response.map { Category(it, 0xFFFACE6E) }
         view.showCategories(categories)
     }
 
-    fun onError(message: String) {
-        view.showFailure(message)
+    override fun onError(response: String) {
+        view.showFailure(response)
     }
 
-    fun onComplete() {
+    override fun onComplete() {
         view.hideProgress()
-    }
-
-    // Testing purpose
-    private fun fakeRequest() {
-        Handler(Looper.getMainLooper()).postDelayed({
-            val response = arrayListOf(
-                "Categoria 1",
-                "Categoria 2",
-                "Categoria 3",
-                "Categoria 4"
-            )
-
-            onSuccess(response)
-//            onError("falha de conexão")
-            onComplete()
-        }, 3000)
     }
 }
